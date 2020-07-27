@@ -43,35 +43,48 @@ def fb_login():
 	password_input.send_keys(password)
 
 	driver.find_element_by_id('loginbutton').click()
-
 	time.sleep(1)
+
+
+# scroll down and up
+def scroll_down_up():
+	last_height = driver.execute_script("return document.documentElement.scrollHeight")
+	while True:
+		# Scroll down
+		driver.execute_script("window.scrollTo(0,document.documentElement.scrollHeight);")
+		# Wait to load page
+		time.sleep(1)
+		# Calculate new scroll height and compare with last scroll height
+		new_height = driver.execute_script("return document.documentElement.scrollHeight")
+		if new_height == last_height:
+			break
+		last_height = new_height
+	time.sleep(3)
+	# scroll up
+	driver.execute_script("window.scrollTo(0,0);")
+
 
 # facebook search using find_by_xpath
 def fb_search(keywords):
 	search = driver.find_element_by_xpath("//input[@type='search']")
+	search.clear()
 	search.send_keys(keywords)
-	search.click()
+	driver.find_element_by_xpath("//input[@type='search']").send_keys(Keys.RETURN)
+	time.sleep(1)
 
 
 # def navigate_fb():
 # 	navigation_bar =  driver.find_element_by_xpath()
 # 	print(navigation_bar)
 
-# hamburger menu
-# ham_button = driver.find_element_by_id('guide-button')
-# ham_button
-
-# testing search bar
-# search_bar = driver.find_element_by_id("search-input")
-# search_bar.send_keys("Python testing")
-# search_bar.send_keys(Keys.RETURN)
 
 google_search()
 fb_login()
 fb_search('Coronavirus')
-
+scroll_down_up()
 # navigate_fb()
 
 
 # exit the browser
-# driver.quit()
+time.sleep(3)
+driver.quit()
