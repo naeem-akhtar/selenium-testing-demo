@@ -10,7 +10,7 @@ def get_title():
 	print('title of website: ', driver.title)
 	time.sleep(1)
 
-
+# google search bar using find_by_name
 def google_search():
 	# search for facebook
 	link = 'https://www.google.com'
@@ -26,7 +26,7 @@ def google_search():
 	time.sleep(1)
 
 
-# login using credential
+# login using credential using find_by_id
 def fb_login():
 	link = 'https://www.facebook.com'
 	driver.get(link)
@@ -46,6 +46,12 @@ def fb_login():
 
 	time.sleep(1)
 
+# facebook search using find_by_xpath
+def fb_search(keywords):
+	search = driver.find_element_by_xpath("//input[@type='search']")
+	search.send_keys(keywords)
+	search.click()
+
 
 # def navigate_fb():
 # 	navigation_bar =  driver.find_element_by_xpath()
@@ -62,6 +68,8 @@ def fb_login():
 
 google_search()
 fb_login()
+fb_search('Coronavirus')
+
 # navigate_fb()
 
 
